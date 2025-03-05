@@ -1,0 +1,65 @@
+[
+    {
+        "id": "1",
+        "userId": "1",
+        "type": "image",
+        "url": "https://example.com/image1.jpg",
+        "duration": 5000,
+        "time": "2 h",
+        "seen": false
+    },
+    {
+        "id": "2",
+        "userId": "1",
+        "type": "image",
+        "url": "https://example.com/video1.mp4",
+        "duration": 5000,
+        "time": "20 h",
+        "seen": false
+    },
+    {
+        "id": "3",
+        "userId": "2",
+        "type": "image",
+        "url": "https://example.com/image2.jpg",
+        "duration": 5000,
+        "time": "30 min",
+        "seen": false
+    },
+    {
+        "id": "4",
+        "userId": "2",
+        "type": "image",
+        "url": "https://example.com/image2.jpg",
+        "duration": 5000,
+        "time": "30 min",
+        "seen": false
+    },
+    {
+        "id": "5",
+        "userId": "3",
+        "type": "image",
+        "url": "https://example.com/image2.jpg",
+        "duration": 5000,
+        "time": "30 min",
+        "seen": false
+    },
+    {
+        "id": "6",
+        "userId": "8",
+        "type": "image",
+        "url": "https://example.com/image2.jpg",
+        "duration": 5000,
+        "time": "30 min",
+        "seen": false
+    },
+    {
+        "id": "7",
+        "userId": "6",
+        "type": "image",
+        "url": "https://example.com/image2.jpg",
+        "duration": 5000,
+        "time": "30 min",
+        "seen": false
+    }
+]
