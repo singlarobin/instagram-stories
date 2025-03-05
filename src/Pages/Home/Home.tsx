@@ -1,30 +1,31 @@
-import { useEffect, useMemo, useState } from "react";
-import { HomeContainer, StoryContainer } from "./Home.styled";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import { Loader } from "../../ui-components";
-import { useFetchUserData } from "./hooks/useFetchUserData";
-import { useFetchUserStories } from "./hooks/useFetchUserStories";
-import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { UserDetailsType } from "./types";
 import { currentUserId } from "../../utils/constant";
 import { StoryCard } from "../../components/StoryCard/StoryCard";
 
+import { useFetchUserData } from "./hooks/useFetchUserData";
+import { useFetchUserStories } from "./hooks/useFetchUserStories";
+import { UserDetailsType } from "./types";
+import { HomeContainer, StoryContainer } from "./Home.styled";
+import { updateUsersHavingStoryList } from "./homeReducer";
+
 export const Home = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const { isFetchingUser, fetchUsersData } = useFetchUserData();
     const { isFetchingStories, fetchUserStories } = useFetchUserStories();
 
-    const [userDataObj, setUserDataObj] = useState<
-        Record<string, UserDetailsType>
-    >({});
-    const [usersHavingStoryList, setUserHavingStoryList] = useState<
-        UserDetailsType[]
-    >([]);
+    const [userDataObj, setUserDataObj] =
+        useState<Record<string, UserDetailsType>>();
 
     const { homeReducer } = useSelector((state: RootState) => state);
 
-    console.log("homeReducer", homeReducer, usersHavingStoryList);
-
-    const { userData, storiesData } = homeReducer;
+    const { userData, storiesData, usersHavingStoryList } = homeReducer;
 
     useEffect(() => {
         void fetchUsersData();
@@ -43,24 +44,42 @@ export const Home = () => {
     }, [JSON.stringify(userData)]);
 
     useEffect(() => {
-        void filterUsersHavingStories();
+        if (
+            userDataObj !== null &&
+            userDataObj !== undefined &&
+            storiesData !== null &&
+            storiesData !== undefined
+        ) {
+            void filterUsersHavingStories();
+        }
     }, [JSON.stringify(userDataObj), JSON.stringify(storiesData)]);
 
     const filterUsersHavingStories = () => {
-        const userObj: Record<string, UserDetailsType> = {};
+        if (userDataObj !== null && userDataObj !== undefined) {
+            const userObj: Record<string, UserDetailsType> = {};
 
-        storiesData
-            .filter((currentStory) => currentStory.userId !== currentUserId)
-            .forEach((currentStory) => {
-                userObj[currentStory.userId] = userDataObj[currentStory.userId];
-            });
+            storiesData
+                .filter((currentStory) => currentStory.userId !== currentUserId)
+                .forEach((currentStory) => {
+                    userObj[currentStory.userId] =
+                        userDataObj[currentStory.userId];
+                });
 
-        const userList: UserDetailsType[] = [];
-        for (const userKey of Object.keys(userObj)) {
-            userList.push(userObj[userKey]);
+            const userList: UserDetailsType[] = [];
+            for (const userKey of Object.keys(userObj)) {
+                userList.push(userObj[userKey]);
+            }
+
+            dispatch(
+                updateUsersHavingStoryList({
+                    data: userList,
+                })
+            );
         }
+    };
 
-        setUserHavingStoryList(userList);
+    const handleShowStory = (userId: string) => {
+        navigate(`/stories/${userId}`);
     };
 
     return (
@@ -69,9 +88,14 @@ export const Home = () => {
                 <StoryCard
                     user={userData.find((user) => user.id === currentUserId)}
                     canCreate={true}
+                    handleShowStory={handleShowStory}
                 />
                 {usersHavingStoryList.map((user) => (
-                    <StoryCard key={user.id} user={user} />
+                    <StoryCard
+                        key={user.id}
+                        user={user}
+                        handleShowStory={handleShowStory}
+                    />
                 ))}
             </StoryContainer>
             <Loader showLoader={isFetchingUser || isFetchingStories} />

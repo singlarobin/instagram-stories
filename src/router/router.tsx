@@ -8,7 +8,7 @@ const allRoutes = [
         element: <Home />,
     },
     {
-        path: "/stories/:id",
+        path: "/stories/:userId",
         element: <Stories />,
     },
     //   {

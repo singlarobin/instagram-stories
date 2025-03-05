@@ -7,21 +7,28 @@ import { deploymentUrl } from "../../utils/envVariables";
 import { Card, Container, CreateBtn, UserImg } from "./StoryCard.styled";
 
 type StoryCardProps = {
+    handleShowStory: (id: string) => void;
     user?: UserDetailsType;
     canCreate?: boolean;
 };
 
-export const StoryCard = ({ user, canCreate = false }: StoryCardProps) => {
+export const StoryCard = ({
+    user,
+    canCreate = false,
+    handleShowStory,
+}: StoryCardProps) => {
     if (user === null || user === undefined) {
         return;
     }
+
     return (
         <Container>
-            <Card>
+            <Card onClick={() => handleShowStory(user.id)}>
                 <UserImg src={deploymentUrl + user.imageUrl} />
                 {canCreate && (
                     <CreateBtn
-                        onClick={() => {
+                        onClick={(e) => {
+                            e.stopPropagation();
                             alert("Need to be implemented!");
                         }}
                     >
