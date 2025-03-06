@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { toasts } from "../../../ui-components";
+import { toasts } from "../ui-components";
 import { useDispatch } from "react-redux";
-import { updateUserList } from "../homeReducer";
+import { updateUserList } from "../Pages/Home/homeReducer";
 
 export const useFetchUserData = () => {
     const dispatch = useDispatch();

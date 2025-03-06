@@ -17,7 +17,6 @@ export const StoryContainer = styled.div`
     .right-click {
         width: 50%;
         height: 100%;
-        cursor: pointer;
     }
 `;
 
@@ -74,6 +73,6 @@ export const StoryImg = styled.img`
 
 export const ProfileImg = styled.img`
     width: 3.2rem;
-    height: 3.2 rem;
+    height: 3.2rem;
     border-radius: 50%;
 `;

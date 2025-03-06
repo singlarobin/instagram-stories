@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -12,10 +12,12 @@ import {
     StoryHeader,
     StoryImg,
 } from "./Stories.styled";
+import { CSSTransition } from "react-transition-group";
 
 export const Stories = () => {
     const params = useParams();
     const navigate = useNavigate();
+
     const { userId } = params;
 
     const { homeReducer } = useSelector((state: RootState) => state);
@@ -26,6 +28,7 @@ export const Stories = () => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [progress, setProgress] = useState(0);
+    const ref = useRef(null);
 
     const { storiesData, userData, usersHavingStoryList } = homeReducer;
 
@@ -146,42 +149,54 @@ export const Stories = () => {
     }
 
     return (
-        <StoryContainer>
-            <StoryHeader>
-                <div className="progress-bar-container">
-                    {currentStoryList.map((_, index) => (
-                        <div key={index} className="progress-bar">
-                            <div
-                                className="progress-fill"
-                                style={{
-                                    width:
-                                        index === currentIndex
-                                            ? `${progress}%`
-                                            : index < currentIndex
-                                            ? "100%"
-                                            : "0%",
-                                }}
-                            ></div>
-                        </div>
-                    ))}
-                </div>
-                <div className="profile-container">
-                    <ProfileImg src={currentUserDetail.imageUrl} />
-                    <div className="text-container">
-                        <Text color="var(--color-white)">
-                            {currentUserDetail.userName}
-                        </Text>
-                        <Text size="small" color="var(--color-gainsboro)">
-                            {currentStoryList[currentIndex].time}
-                        </Text>
+        <CSSTransition
+            timeout={200}
+            in={true}
+            classNames={"fade"}
+            nodeRef={ref}
+        >
+            <StoryContainer id="story-container" ref={ref}>
+                <StoryHeader>
+                    <div className="progress-bar-container">
+                        {currentStoryList.map((_, index) => (
+                            <div key={index} className="progress-bar">
+                                <div
+                                    className={`progress-fill ${
+                                        index === currentIndex ? "active" : ""
+                                    }`}
+                                    style={{
+                                        width:
+                                            index === currentIndex
+                                                ? `${progress}%`
+                                                : index < currentIndex
+                                                ? "100%"
+                                                : "0%",
+                                    }}
+                                ></div>
+                            </div>
+                        ))}
                     </div>
+                    <div className="profile-container">
+                        <ProfileImg src={currentUserDetail.imageUrl} />
+                        <div className="text-container">
+                            <Text color="var(--color-white)">
+                                {currentUserDetail.userName}
+                            </Text>
+                            <Text size="small" color="var(--color-gainsboro)">
+                                {currentStoryList[currentIndex].time}
+                            </Text>
+                        </div>
+                    </div>
+                </StoryHeader>
+                <div className="story-navigation">
+                    <div className="left-click" onClick={handlePrevStory}></div>
+                    <div
+                        className="right-click"
+                        onClick={handleNextStory}
+                    ></div>
                 </div>
-            </StoryHeader>
-            <div className="story-navigation">
-                <div className="left-click" onClick={handlePrevStory}></div>
-                <div className="right-click" onClick={handleNextStory}></div>
-            </div>
-            <StoryImg src={currentStoryList[currentIndex].url} />
-        </StoryContainer>
+                <StoryImg src={currentStoryList[currentIndex].url} />
+            </StoryContainer>
+        </CSSTransition>
     );
 };

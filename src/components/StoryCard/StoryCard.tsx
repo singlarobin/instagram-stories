@@ -22,11 +22,12 @@ export const StoryCard = ({
     }
 
     return (
-        <Container>
+        <Container data-cy="story-card-container">
             <Card onClick={() => handleShowStory(user.id)}>
                 <UserImg src={deploymentUrl + user.imageUrl} />
                 {canCreate && (
                     <CreateBtn
+                        id="create-story-btn"
                         onClick={(e) => {
                             e.stopPropagation();
                             alert("Need to be implemented!");
