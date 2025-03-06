@@ -3,48 +3,48 @@
         "id": "1",
         "name": "Robin Singla",
         "userName": "robin_singla",
-        "imageUrl": "assets/images/img1.jpg"
+        "imageUrl": "/assets/images/img1.jpg"
     },
     {
         "id": "2",
         "name": "Aditiya Kumar",
         "userName": "@dityaKumar",
-        "imageUrl": "assets/images/img2.jpg"
+        "imageUrl": "/assets/images/img2.jpg"
     },
     {
         "id": "3",
         "name": "Priyanka",
         "userName": "_priyanka_",
-        "imageUrl": "assets/images/img3.jpg"
+        "imageUrl": "/assets/images/img3.jpg"
     },
     {
         "id": "4",
         "name": "Raj Gupta",
         "userName": "r@jGupt@",
-        "imageUrl": "assets/images/img4.jpg"
+        "imageUrl": "/assets/images/img4.jpg"
     },
     {
         "id": "5",
         "name": "Priya Singla",
         "userName": "priyA_singlA012",
-        "imageUrl": "assets/images/img1.jpg"
+        "imageUrl": "/assets/images/img1.jpg"
     },
     {
         "id": "6",
         "name": "Ankita",
         "userName": "@nkit@",
-        "imageUrl": "assets/images/img2.jpg"
+        "imageUrl": "/assets/images/img2.jpg"
     },
     {
         "id": "7",
         "name": "Gurpreet Singh",
         "userName": "gurpreetSingh@90",
-        "imageUrl": "assets/images/img3.jpg"
+        "imageUrl": "/assets/images/img3.jpg"
     },
     {
         "id": "8",
         "name": "Yash Gupta",
         "userName": "Y@shGupt@",
-        "imageUrl": "assets/images/img4.jpg"
+        "imageUrl": "/assets/images/img4.jpg"
     }
 ]

@@ -2,7 +2,6 @@ import { FaPlus } from "react-icons/fa6";
 
 import type { UserDetailsType } from "../../Pages/Home/types";
 import { Text } from "../../ui-components";
-import { deploymentUrl } from "../../utils/envVariables";
 import { Card, Container, CreateBtn, UserImg } from "./StoryCard.styled";
 
 type StoryCardProps = {
@@ -23,7 +22,7 @@ export const StoryCard = ({
     return (
         <Container data-cy="story-card-container">
             <Card onClick={() => handleShowStory(user.id)}>
-                <UserImg src={deploymentUrl + user.imageUrl} />
+                <UserImg src={user.imageUrl} />
                 {canCreate && (
                     <CreateBtn
                         id="create-story-btn"
