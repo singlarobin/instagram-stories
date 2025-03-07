@@ -10,6 +10,8 @@ export const Colors = createGlobalStyle`
 
         --color-white: #fff;
         --color-black: #000;
+
+        --color-nightRider: #323232cc;
         --color-gainsboro: #D9D9D9;
      
     }
