@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoCloseCircleOutline } from "react-icons/io5";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { RootState } from "../../store";
 import { Text } from "../../ui-components";
@@ -13,7 +14,6 @@ import {
     StoryHeader,
     StoryImg,
 } from "./Stories.styled";
-import { CSSTransition } from "react-transition-group";
 
 export const Stories = () => {
     const params = useParams();
@@ -150,62 +150,74 @@ export const Stories = () => {
     }
 
     return (
-        <CSSTransition
-            timeout={200}
-            in={true}
-            classNames={"fade"}
-            nodeRef={ref}
-        >
-            <StoryContainer id="story-container" ref={ref}>
-                <StoryHeader>
-                    <div className="progress-bar-container">
-                        {currentStoryList.map((_, index) => (
-                            <div key={index} className="progress-bar">
-                                <div
-                                    className={`progress-fill ${
-                                        index === currentIndex ? "active" : ""
-                                    }`}
-                                    style={{
-                                        width:
+        <StoryContainer id="story-container" ref={ref}>
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={userId}
+                    initial={{ opacity: 0, scale: 0.95, x: 50 }}
+                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, x: -50 }}
+                    transition={{ duration: 0.6, ease: "easeInOut" }}
+                    className="story"
+                >
+                    <StoryHeader>
+                        <div className="progress-bar-container">
+                            {currentStoryList.map((_, index) => (
+                                <div key={index} className="progress-bar">
+                                    <div
+                                        className={`progress-fill ${
                                             index === currentIndex
-                                                ? `${progress}%`
-                                                : index < currentIndex
-                                                ? "100%"
-                                                : "0%",
-                                    }}
-                                ></div>
-                            </div>
-                        ))}
-                    </div>
+                                                ? "active"
+                                                : ""
+                                        }`}
+                                        style={{
+                                            width:
+                                                index === currentIndex
+                                                    ? `${progress}%`
+                                                    : index < currentIndex
+                                                    ? "100%"
+                                                    : "0%",
+                                        }}
+                                    ></div>
+                                </div>
+                            ))}
+                        </div>
 
-                    <div className="profile-container">
-                        <ProfileImg src={currentUserDetail.imageUrl} />
-                        <div className="text-container">
-                            <Text color="var(--color-white)">
-                                {currentUserDetail.userName}
-                            </Text>
-                            <Text size="small" color="var(--color-gainsboro)">
-                                {currentStoryList[currentIndex].time}
-                            </Text>
+                        <div className="profile-container">
+                            <ProfileImg src={currentUserDetail.imageUrl} />
+                            <div className="text-container">
+                                <Text color="var(--color-white)">
+                                    {currentUserDetail.userName}
+                                </Text>
+                                <Text
+                                    size="small"
+                                    color="var(--color-gainsboro)"
+                                >
+                                    {currentStoryList[currentIndex].time}
+                                </Text>
+                            </div>
                         </div>
-                    </div>
-                </StoryHeader>
-                <div className="story-navigation">
-                    <div className="left-click" onClick={handlePrevStory}></div>
-                    <div className="right-click" onClick={handleNextStory}>
+                    </StoryHeader>
+                    <div className="story-navigation">
                         <div
-                            className="cross-btn"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                navigate(-1);
-                            }}
-                        >
-                            <IoCloseCircleOutline size={24} />
+                            className="left-click"
+                            onClick={handlePrevStory}
+                        ></div>
+                        <div className="right-click" onClick={handleNextStory}>
+                            <div
+                                className="cross-btn"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    navigate(-1);
+                                }}
+                            >
+                                <IoCloseCircleOutline size={24} />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <StoryImg src={currentStoryList[currentIndex].url} />
-            </StoryContainer>
-        </CSSTransition>
+                    <StoryImg src={currentStoryList[currentIndex].url} />
+                </motion.div>
+            </AnimatePresence>
+        </StoryContainer>
     );
 };

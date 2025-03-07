@@ -5,6 +5,11 @@ export const StoryContainer = styled.div`
     width: 100%;
     position: relative;
 
+    .story {
+        height: inherit;
+        width: inherit;
+    }
+
     .story-navigation {
         position: absolute;
         width: 100%;
@@ -24,6 +29,7 @@ export const StoryContainer = styled.div`
         top: 36px;
         right: -80px;
         cursor: pointer;
+        padding: 12px;
     }
 `;
 
