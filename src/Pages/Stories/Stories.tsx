@@ -31,6 +31,7 @@ export const Stories = () => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [progress, setProgress] = useState(0);
+    const [xtransitionValue, setxTransitionValue] = useState(-50);
     const ref = useRef(null);
 
     const currentUserDetail = userData.find((user) => user.id === userId);
@@ -118,6 +119,8 @@ export const Stories = () => {
     };
 
     const handleNextStory = useCallback(() => {
+        setxTransitionValue(-50);
+
         if (currentIndex < currentStoryList.length - 1) {
             setCurrentIndex((prev) => prev + 1);
             return;
@@ -131,6 +134,7 @@ export const Stories = () => {
     ]);
 
     const handlePrevStory = useCallback(() => {
+        setxTransitionValue(50);
         if (currentIndex > 0) {
             setCurrentIndex((prev) => prev - 1);
             return;
@@ -156,8 +160,8 @@ export const Stories = () => {
                     key={userId}
                     initial={{ opacity: 0, scale: 0.95, x: 50 }}
                     animate={{ opacity: 1, scale: 1, x: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, x: -50 }}
-                    transition={{ duration: 0.1, ease: "easeInOut" }}
+                    exit={{ opacity: 0, scale: 0.95, x: xtransitionValue }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
                     className="story"
                 >
                     <StoryHeader>
