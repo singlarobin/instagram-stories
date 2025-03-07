@@ -1,54 +1,27 @@
-# React + TypeScript + Vite
+# Instructions for setting up and running my application and tests.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Installation
+- Ensure you have the following installed before proceeding:
+   - Node.js (Recommended: LTS version)
+   - npm
+- Clone the Repository
+   - git clone <repo-url>
+   - cd <your-project-folder>
+- Install Dependencies
+   - npm install
+-  Start the Development Server
+   - npm run dev
+   - This will start the application, and you can access it at: http://localhost:5173
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Running Testing In Cypress
+- Open Cypress Test Runner
+  - npx cypress open
+-  Run Cypress Tests in Headless Mode
+  - npx cypress run
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# A brief explanation of myr design choices, particularly how i optimized for performance and scalability
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+I designed the project with **performance and scalability** in mind by leveraging **Redux Toolkit** for efficient state management, minimizing unnecessary re-renders. **React Router** ensures seamless navigation, while **React Toastify** provides non-blocking notifications for a better user experience. Data fetching is handled using the **fetch API with async/await and error handling**, encapsulated in a **custom hook to improve reusability**. UI components are modularized in a separate folder for maintainability. **Framer Motion** enhances UI transitions smoothly without impacting performance, ensuring a fluid user experience. These choices collectively improve the app's **efficiency, maintainability, and scalability**.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
