@@ -157,7 +157,7 @@ export const Stories = () => {
                     initial={{ opacity: 0, scale: 0.95, x: 50 }}
                     animate={{ opacity: 1, scale: 1, x: 0 }}
                     exit={{ opacity: 0, scale: 0.95, x: -50 }}
-                    transition={{ duration: 0.6, ease: "easeInOut" }}
+                    transition={{ duration: 0.1, ease: "easeInOut" }}
                     className="story"
                 >
                     <StoryHeader>
@@ -211,7 +211,10 @@ export const Stories = () => {
                                     navigate(-1);
                                 }}
                             >
-                                <IoCloseCircleOutline size={24} />
+                                <IoCloseCircleOutline
+                                    size={32}
+                                    color="var(--color-white)"
+                                />
                             </div>
                         </div>
                     </div>

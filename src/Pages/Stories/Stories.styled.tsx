@@ -26,10 +26,8 @@ export const StoryContainer = styled.div`
 
     .cross-btn {
         position: relative;
-        top: 36px;
+        top: 32px;
         right: -80px;
-        cursor: pointer;
-        padding: 12px;
     }
 `;
 
