@@ -28,6 +28,7 @@ export const StoryContainer = styled.div`
         position: relative;
         top: 32px;
         right: -80px;
+        padding: 8px;
     }
 `;
 
