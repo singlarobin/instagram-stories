@@ -56,7 +56,9 @@ export const Home = () => {
 
             const userList: UserDetailsType[] = [];
             for (const userKey of Object.keys(userObj)) {
-                userList.push(userObj[userKey]);
+                if (userObj[userKey]) {
+                    userList.push(userObj[userKey]);
+                }
             }
 
             dispatch(

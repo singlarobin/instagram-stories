@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { IoCloseCircleOutline } from "react-icons/io5";
 
 import { RootState } from "../../store";
 import { Text } from "../../ui-components";
@@ -20,7 +21,9 @@ export const Stories = () => {
 
     const { userId } = params;
 
-    const { homeReducer } = useSelector((state: RootState) => state);
+    const { storiesData, userData, usersHavingStoryList } = useSelector(
+        (state: RootState) => state.homeReducer
+    );
 
     const [currentStoryList, setCurrentStoryList] = useState<UserStorytype[]>(
         []
@@ -29,8 +32,6 @@ export const Stories = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [progress, setProgress] = useState(0);
     const ref = useRef(null);
-
-    const { storiesData, userData, usersHavingStoryList } = homeReducer;
 
     const currentUserDetail = userData.find((user) => user.id === userId);
 
@@ -176,6 +177,7 @@ export const Stories = () => {
                             </div>
                         ))}
                     </div>
+
                     <div className="profile-container">
                         <ProfileImg src={currentUserDetail.imageUrl} />
                         <div className="text-container">
@@ -190,10 +192,17 @@ export const Stories = () => {
                 </StoryHeader>
                 <div className="story-navigation">
                     <div className="left-click" onClick={handlePrevStory}></div>
-                    <div
-                        className="right-click"
-                        onClick={handleNextStory}
-                    ></div>
+                    <div className="right-click" onClick={handleNextStory}>
+                        <div
+                            className="cross-btn"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                navigate(-1);
+                            }}
+                        >
+                            <IoCloseCircleOutline size={24} />
+                        </div>
+                    </div>
                 </div>
                 <StoryImg src={currentStoryList[currentIndex].url} />
             </StoryContainer>

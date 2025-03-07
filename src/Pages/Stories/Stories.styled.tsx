@@ -18,6 +18,13 @@ export const StoryContainer = styled.div`
         width: 50%;
         height: 100%;
     }
+
+    .cross-btn {
+        position: relative;
+        top: 36px;
+        right: -80px;
+        cursor: pointer;
+    }
 `;
 
 export const StoryHeader = styled.div`
@@ -54,8 +61,9 @@ export const StoryHeader = styled.div`
     .profile-container {
         display: flex;
         gap: 1rem;
-        justify-content: center;
+        justify-content: start;
         align-items: center;
+        width: inherit;
 
         .text-container {
             display: flex;
@@ -68,7 +76,7 @@ export const StoryHeader = styled.div`
 
 export const StoryImg = styled.img`
     width: 100%;
-    height: auto;
+    height: 100%;
 `;
 
 export const ProfileImg = styled.img`
